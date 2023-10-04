@@ -56,19 +56,15 @@ class JoblyApi {
 
   // obviously, you'll add a lot here ...  jobs, companies
 
-  //TODO: Add functions for requests with query strings (nameLike for companies,
-  // title for jobs. Add functionality to search by min/max employees or
-  // salary/equity?).
-
   /** Get information on all companies */
-  static async getCompanies() {
-    let res = await this.request(`companies/`);
+  static async getCompanies(searchdata = {}) {
+    let res = await this.request(`companies/`, searchdata);
     return res.companies;
   }
 
   /** Get information on all jobs */
-  static async getJobs() {
-    let res = await this.request(`jobs/`);
+  static async getJobs(searchData={}) {
+    let res = await this.request(`jobs/`, searchData);
     return res.jobs;
   }
 

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import "./Nav.css";
 
 //TODO: Do we need parent nav links or ul with li wrapped Links?
 //TODO: Use NavLink comps here
@@ -10,11 +11,11 @@ import { Link } from "react-router-dom";
  */
 function Nav() {
   return (
-    <nav>
+    <nav className="Nav">
 
-      <Link to="/" >Jobly</Link>
-      <Link to="/companies">Companies</Link>
-      <Link to="/jobs">Jobs</Link>
+      <NavLink to="/" >Jobly</NavLink>
+      <NavLink to="/companies">Companies</NavLink>
+      <NavLink to="/jobs">Jobs</NavLink>
     </nav>
   );
 }

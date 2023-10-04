@@ -29,12 +29,17 @@ function CompanyList() {
     fetchCompanies();
   }, []);
 
-  //FIXME: not done
-  function filterResults(searchQuery) {
-    JoblyApi.request("/companies", searchQuery);
+
+  async function filterResults(searchQuery) {
+    //JoblyApi.request("/companies", searchQuery);
+    const newCompanies = await JoblyApi.getCompanies({nameLike: searchQuery.search});
+    setCompaniesData(d => ({
+      ...d,
+      companies: newCompanies,
+    }));
   }
 
-
+//TODO: place SearchForm in its own div?
   return (
     companiesData.isLoading ?
       <h1>Loading... </h1>

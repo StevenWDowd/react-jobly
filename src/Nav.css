@@ -1,0 +1,9 @@
+.Nav a {
+  text-decoration: none;
+  margin: 2rem;
+}
+
+.Nav a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}

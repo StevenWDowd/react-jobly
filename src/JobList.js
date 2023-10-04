@@ -33,11 +33,23 @@ function JobList() {
     fetchJobs();
   }, []);
 
+  async function filterResults(searchQuery) {
+    //JoblyApi.request("/companies", searchQuery);
+    const newJobs = await JoblyApi.getJobs({title: searchQuery.search});
+    setJobsData(d => ({
+      ...d,
+      jobs: newJobs,
+    }));
+  }
+
   return (
     jobsData.isLoading ?
       <h1>Loading... </h1>
       :
-      <JobCardList jobs={jobsData.jobs} />
+      <div className="JobList">
+        <SearchForm filterResults={filterResults}/>
+        <JobCardList jobs={jobsData.jobs} />
+      </div>
   );
 }
 
