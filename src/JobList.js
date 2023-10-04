@@ -34,12 +34,14 @@ function JobList() {
   }, []);
 
   async function filterResults(searchQuery) {
-    //JoblyApi.request("/companies", searchQuery);
-    const newJobs = await JoblyApi.getJobs({title: searchQuery.search});
+    const searchTerm = searchQuery.search;
+    if (searchTerm) {
+    const newJobs = await JoblyApi.getJobs({title: searchTerm});
     setJobsData(d => ({
       ...d,
       jobs: newJobs,
     }));
+    }
   }
 
   return (

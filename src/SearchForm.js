@@ -31,7 +31,9 @@ function SearchForm({ filterResults }) {
   }
   return (
     <form className="Search" onSubmit={handleSubmit}>
-      <input name="search" value={formData.search} onChange={handleChange}></input>
+      <input name="search"
+             value={formData.search}
+             onChange={handleChange}></input>
       <button className="SearchButton" type="submit">Search</button>
     </form>
   );

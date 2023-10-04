@@ -31,12 +31,16 @@ function CompanyList() {
 
 
   async function filterResults(searchQuery) {
-    //JoblyApi.request("/companies", searchQuery);
-    const newCompanies = await JoblyApi.getCompanies({nameLike: searchQuery.search});
+
+    const searchTerm = searchQuery.search;
+
+    if (searchTerm) {
+    const newCompanies = await JoblyApi.getCompanies({nameLike: searchTerm});
     setCompaniesData(d => ({
       ...d,
       companies: newCompanies,
     }));
+    }
   }
 
 //TODO: place SearchForm in its own div?
@@ -47,7 +51,8 @@ function CompanyList() {
       <div>
         <SearchForm filterResults={filterResults} />
         <ul className="CompanyList">
-          {companiesData.companies.map(comp => (<li><CompanyCard key={comp.handle} company={comp} /></li>))}
+          {companiesData.companies.map(c => (<li><CompanyCard key={c.handle}
+                                                        company={c} /></li>))}
 
         </ul>
       </div>
