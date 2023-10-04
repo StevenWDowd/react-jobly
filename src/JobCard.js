@@ -1,3 +1,14 @@
+
+/** JobCard
+
+Renders card for each individual job
+
+Props
+  -job {title, salary, equity, companyHandle}
+
+
+  JobCardList -> JobCard
+*/
 function JobCard({job}) {
  return (
   <div className="JobCard">

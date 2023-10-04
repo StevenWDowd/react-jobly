@@ -1,5 +1,15 @@
 import JobCard from "./JobCard";
 
+/**JobCardList
+
+  Renders list of cards, each with single job
+
+  Props
+  -jobs ([ {job}, {job} ]
+
+  App -> RoutesList -> {CompanyDetail, JobList} -> JobCardList
+
+ */
 function JobCardList({jobs}) {
   //const { id, title, salary, equity, companyHandle, companyName } = jobs;
 

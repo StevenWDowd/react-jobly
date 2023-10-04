@@ -3,6 +3,16 @@ import { useParams } from "react-router-dom";
 import JobCardList from "./JobCardList";
 import JoblyApi from "./api";
 
+/** Renders a detailed comapny compononent based on an API call using a handle
+ *  in the URL params
+ *  props: none
+ *  state: companyData, tracking whether data has been retrieved and holding
+ *          the data. Company data will look like:
+ *          { handle, name, description, numEmployees, logoUrl, jobs }
+ *              where jobs is [{ id, title, salary, equity }, ...]
+ *
+ *  App -> RoutesList -> CompanyDetail
+ */
 function CompanyDetail() {
   const { handle } = useParams();
 

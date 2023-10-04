@@ -4,6 +4,12 @@ import CompanyList from "./CompanyList";
 import JobList from "./JobList";
 import CompanyDetail from "./CompanyDetail";
 
+/** Function to create a list of routes for the BrowseRouter
+ *  props: none
+ *  state: none
+ *
+ *  App -> RoutesList -> { Homepage, CompanyList, CompanyDetail, JobList}
+ */
 function RoutesList() {
   return (
     <Routes>
