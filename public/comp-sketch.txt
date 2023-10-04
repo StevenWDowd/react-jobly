@@ -1,22 +1,63 @@
 App:
  -no props/state
 
+Homepage
+   -links to: Login, Signup
 
- JoblyApp: Logic component for the app
-
-	state: JobsData: From /jobs GET route
-	       CompanyData : From /companies GET route
-		Both of these are retrieved with API calls on mount
-
-	Nav
-	 Link components to /companies, /jobs, and /
-
-	Router
-	  RoutesList?
-		Routes for /companies, /jobs, /companies/:handle, /
+Context
+	-object containing:
+		-username
+		-email
+		-first/last name
+		-list of jobs applied to
+	-function to call backend with login/register info
 
 
-	Companies: Maps over CompanyData to render a CompanySlug component for each. Each slug is wrapped in a Link component to /companies/:handle
+		LoginForm
+			state:
+				-formData
+
+		SignupForm
+			state:
+				-formData
+		ProfileForm
+			contextFunction
+			state:
+				-formData
+
+
+	Nav (logged in)
+	-nested in BrowserRouter
+	-prop
+		-currentUser
+
+	 Link components to:
+	 	-/homepage
+	 	-/companies
+		-/jobs
+		-/logout
+		-/profile
+
+		(anon user)
+		-/homepage
+		-/Login
+		-/signup
+
+
+	RoutesList
+		-nested in BrowserRouter
+		Routes for:
+			/homepage
+			/companies
+			/jobs
+			/companies/:handle
+			/Login
+			/signup
+			/logout
+
+
+	CompaniesList: Maps over CompanyData to render a CompanySlug component for each.
+					Each slug is wrapped in a Link component to /companies/:handle
 	 props: CompanyData
 	 state: searchedCompanies
 
@@ -25,24 +66,49 @@ App:
 			state: keep track of what is typed in field
 				-
 
-		CompanySlug:wrapped in a Link to companies/:handle
+		CompanyCard: wrapped in a Link to companies/:handle
 			props: company name, description, and handle
 
-	Company: Renders a company page with Job components for each job of that company
+	CompanyDetail: Renders a company page with Job components for each job of that company
 		props: Company handle from Companies
 		state: Company data from call to API GET companies/:handle (useEffect to call upon mount)
 
-		Job: Renders a job element for each job related to the parent Company.
+		JobCardList: Renders a job element for each job related to the parent Company.
 		props: job object passed by Company {id, title, salary, equity} NOTE: Won't have a company prop in this case; implied by parent
 
+			JobCard: Renders a job element for each job related to the parent Company.
+		        -props: job object passed by Jobs {id, title, salary, equity}
+				-wrapped in useContext
+				-apply button to each card
 
-	Jobs
+
+	JobList
 	 props: JobData
 	 state: searchedJobs
 		JobSearchBar: search bar to filter jobs by title
 			props: function to pare down jobs in Jobs based on title
 			state: keep track of what is typed in field
 
-		Job: Renders a job element for each job related to the parent Company.
-		props: job object passed by Jobs {id, title, salary, equity}
+		JobCardList (detailed on companies)
+			JobCard (detailed one companies)
+
+		JobCard: (detailed on companies)
+
+
+	JoblyApi
+		-request: points to backend routes:
+			/companies
+			/jobs
+			/company/:handle
+			/token (Login)
+			/register
+			/users
+				-will have POST method
+		-getCompany
+		-getCompanies
+		-getJobs
+		-contextUpdateFunction
+
+
+
 

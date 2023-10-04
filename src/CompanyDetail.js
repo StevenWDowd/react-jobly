@@ -20,25 +20,21 @@ function CompanyDetail() {
 
   useEffect(function fetchCompanyWhenMounted() {
     async function fetchCompany() {
-    const newCompany = await JoblyApi.getCompany(handle);
-    setCompanyData(newCompany)
+      const newCompany = await JoblyApi.getCompany(handle);
+      setCompanyData(newCompany);
     }
     fetchCompany();
-    }, [ ]);
+  }, []);
 
-    if (!companyData) {
+  if (!companyData) return <p>Loading...</p>;
 
-      return <p>Loading...</p>
-
-      }
-
-    return (
+  return (
     <div className="CompanyDetail">
       <h1>{companyData.name}</h1>
       <h3>{companyData.description}</h3>
-      <JobCardList jobs={companyData.jobs}/>
+      <JobCardList jobs={companyData.jobs} />
     </div>
-    )
+  );
 
 
 
