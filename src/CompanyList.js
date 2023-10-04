@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CompanyCard from "./CompanyCard";
-import SearchForm from "./SearchForm"
+import SearchForm from "./SearchForm";
 import JoblyApi from "./api";
 
 /** Function to render a list of companies
@@ -14,30 +14,38 @@ function CompanyList() {
   const [companiesData, setCompaniesData] = useState({
     companies: [],
     isLoading: true
-  })
+  });
 
   useEffect(function fetchCompaniesWhenMounted() {
     async function fetchCompanies() {
-    const newCompanies = await JoblyApi.getCompanies();
-       setCompaniesData(d => ({
-            ...d,
-           companies: newCompanies,
-           isLoading: false
-       }));
+      const newCompanies = await JoblyApi.getCompanies();
+      setCompaniesData(d => ({
+        ...d,
+        companies: newCompanies,
+        isLoading: false
+      }));
 
     }
     fetchCompanies();
-    }, [ ]);
+  }, []);
+
+  //FIXME: not done
+  function filterResults(searchQuery) {
+    JoblyApi.request("/companies", searchQuery);
+  }
 
 
   return (
     companiesData.isLoading ?
-    <h1>Loading... </h1>
-    :
-    <ul className="CompanyList">
-      {companiesData.companies.map(comp => (<li><CompanyCard key={comp.handle} company={comp}/></li>))}
+      <h1>Loading... </h1>
+      :
+      <div>
+        <SearchForm filterResults={filterResults} />
+        <ul className="CompanyList">
+          {companiesData.companies.map(comp => (<li><CompanyCard key={comp.handle} company={comp} /></li>))}
 
-    </ul>
+        </ul>
+      </div>
   );
 }
 

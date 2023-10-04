@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 /** Renders a component to narrow down the companies or jobs displayed
  *  based on their name or title, respectively.
@@ -9,11 +10,31 @@
  *
  *  App -> RoutesList -> {CompanyList, JobList} -> SearchForm
  */
-function SearchForm({filterResults}) {
-  return (
-    <p>I am a placeholder component for the search bar.</p>
-  )
+function SearchForm({ filterResults }) {
+  const initialData = {
+    search: ""
+  };
+  const [formData, setFormData] = useState(initialData);
 
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData(fData => ({
+      ...fData,
+      [name]: value,
+    }));
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    filterResults(formData);
+    setFormData(initialData);
+  }
+  return (
+    <form className="Search" onSubmit={handleSubmit}>
+      <input name="search" value={formData.search} onChange={handleChange}></input>
+      <button className="SearchButton" type="submit">Search</button>
+    </form>
+  );
 }
 
 export default SearchForm;
