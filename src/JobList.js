@@ -16,41 +16,32 @@ import JoblyApi from "./api";
   App -> RoutesList -> JobList
 */
 function JobList() {
-  const [jobsData, setJobsData] = useState({
-    jobs: [],
-    isLoading: true
-  });
+  const [jobsData, setJobsData] = useState(null);
 
   useEffect(function fetchJobsWhenMounted() {
     async function fetchJobs() {
       const newJobs = await JoblyApi.getJobs();
-      setJobsData(d => ({
-        ...d,
-        jobs: newJobs,
-        isLoading: false
-      }));
+      setJobsData(newJobs);
     }
     fetchJobs();
   }, []);
 
   async function filterResults(searchQuery) {
-    const searchTerm = searchQuery.search;
-    if (searchTerm) {
-    const newJobs = await JoblyApi.getJobs({title: searchTerm});
-    setJobsData(d => ({
-      ...d,
-      jobs: newJobs,
-    }));
+
+    if (searchQuery) {
+    const newJobs = await JoblyApi.getJobs({title: searchQuery});
+    setJobsData(newJobs);
     }
   }
 
+  if (!jobsData) return <h1>Loading... </h1>
+
   return (
-    jobsData.isLoading ?
-      <h1>Loading... </h1>
-      :
       <div className="JobList">
-        <SearchForm filterResults={filterResults}/>
-        <JobCardList jobs={jobsData.jobs} />
+        <div className="JobsList-search-bar">
+          <SearchForm filterResults={filterResults}/>
+        </div>
+        <JobCardList jobs={jobsData} />
       </div>
   );
 }

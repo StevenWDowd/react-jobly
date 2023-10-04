@@ -11,20 +11,13 @@ import JoblyApi from "./api";
  *  App -> RoutesList -> CompanyList
  */
 function CompanyList() {
-  const [companiesData, setCompaniesData] = useState({
-    companies: [],
-    isLoading: true
-  });
+
+  const [companiesData, setCompaniesData] = useState(null);
 
   useEffect(function fetchCompaniesWhenMounted() {
     async function fetchCompanies() {
       const newCompanies = await JoblyApi.getCompanies();
-      setCompaniesData(d => ({
-        ...d,
-        companies: newCompanies,
-        isLoading: false
-      }));
-
+      setCompaniesData(newCompanies);
     }
     fetchCompanies();
   }, []);
@@ -32,31 +25,32 @@ function CompanyList() {
 
   async function filterResults(searchQuery) {
 
-    const searchTerm = searchQuery.search;
 
-    if (searchTerm) {
-    const newCompanies = await JoblyApi.getCompanies({nameLike: searchTerm});
-    setCompaniesData(d => ({
-      ...d,
-      companies: newCompanies,
-    }));
+
+    if (searchQuery) {
+    const newCompanies = await JoblyApi.getCompanies({nameLike: searchQuery});
+    setCompaniesData(newCompanies);
+
+    }}
+
+  if (!companiesData) {
+    return <h1>Loading... </h1>
     }
-  }
 
-//TODO: place SearchForm in its own div?
+
   return (
-    companiesData.isLoading ?
-      <h1>Loading... </h1>
-      :
-      <div>
-        <SearchForm filterResults={filterResults} />
-        <ul className="CompanyList">
-          {companiesData.companies.map(c => (<li><CompanyCard key={c.handle}
+      <div className="CompanyList">
+        <div className="CompanyList-search-bar">
+          <SearchForm filterResults={filterResults} />
+        </div>
+        <ul className="CompanyList-list">
+          {companiesData.map(c => (<li><CompanyCard key={c.handle}
                                                         company={c} /></li>))}
 
         </ul>
       </div>
   );
+
 }
 
 export default CompanyList;

@@ -16,34 +16,30 @@ import JoblyApi from "./api";
 function CompanyDetail() {
   const { handle } = useParams();
 
-  const [companyData, setCompanyData] = useState({
-    company: null,
-    isLoading: true
-  })
+  const [companyData, setCompanyData] = useState(null);
 
   useEffect(function fetchCompanyWhenMounted() {
     async function fetchCompany() {
     const newCompany = await JoblyApi.getCompany(handle);
-       setCompanyData(d => ({
-            ...d,
-           company: newCompany,
-           isLoading: false
-       }));
-
+    setCompanyData(newCompany)
     }
     fetchCompany();
     }, [ ]);
 
-  return (
-    companyData.isLoading ?
-    <p>Loading...</p>
-    :
+    if (!companyData) {
+
+      return <p>Loading...</p>
+
+      }
+
+    return (
     <div className="CompanyDetail">
-      <h1>{companyData.company.name}</h1>
-      <h3>{companyData.company.description}</h3>
-      <JobCardList jobs={companyData.company.jobs}/>
+      <h1>{companyData.name}</h1>
+      <h3>{companyData.description}</h3>
+      <JobCardList jobs={companyData.jobs}/>
     </div>
-  )
+    )
+
 
 
 }

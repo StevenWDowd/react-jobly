@@ -10,29 +10,27 @@ import { useState } from "react";
  *
  *  App -> RoutesList -> {CompanyList, JobList} -> SearchForm
  */
+
+
 function SearchForm({ filterResults }) {
-  const initialData = {
-    search: ""
-  };
-  const [formData, setFormData] = useState(initialData);
+
+  const [formData, setFormData] = useState("");
 
   function handleChange(evt) {
-    const { name, value } = evt.target;
-    setFormData(fData => ({
-      ...fData,
-      [name]: value,
-    }));
+    const { value } = evt.target;
+    setFormData(value);
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
     filterResults(formData);
-    setFormData(initialData);
+    setFormData("");
   }
+
   return (
     <form className="Search" onSubmit={handleSubmit}>
       <input name="search"
-             value={formData.search}
+             value={formData}
              onChange={handleChange}></input>
       <button className="SearchButton" type="submit">Search</button>
     </form>
