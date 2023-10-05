@@ -90,6 +90,14 @@ class JoblyApi {
     return res.token;
   }
 
+  /** Updates a user's first name, last name, and/or email */
+  static async updateUser(formData){
+    const username = formData.username;
+    delete formData.username;
+    let res = await this.request(`users/${username}`, formData, "PATCH");
+    return res.user;
+  }
+
 }
 
 export default JoblyApi;

@@ -13,7 +13,7 @@ import ProfileForm from "./ProfileForm";
  *
  *  App -> RoutesList -> { Homepage, CompanyList, CompanyDetail, JobList}
  */
-function RoutesList({login, signup}) {
+function RoutesList({login, signup, editProfile}) {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -22,7 +22,7 @@ function RoutesList({login, signup}) {
       <Route path="/companies/:handle" element={<CompanyDetail />} />
       <Route path="/login" element={<LoginForm login={login}/>} />
       <Route path="/signup" element={<SignupForm signup={signup}/>} />
-      <Route path="/profile" element={<ProfileForm/>} />
+      <Route path="/profile" element={<ProfileForm editProfile={editProfile}/>} />
       <Route path="*" element={<Homepage />} />
     </Routes>
   );

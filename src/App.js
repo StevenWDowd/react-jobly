@@ -45,6 +45,14 @@ function App() {
     }
   }
 
+  async function editProfile(formData) {
+    if (token) {
+      const { username } = jwt_decode(token);
+      const updatedUser = await JoblyApi.updateUser(formData);
+      setCurrentUser(updatedUser);
+    }
+  }
+
   //placed on logout button on navbar onClick
   function logout() {
     setCurrentUser(null);
@@ -56,7 +64,7 @@ function App() {
       <userContext.Provider value={{ currentUser }}>
         <BrowserRouter>
           <Nav logout={logout} />
-          <RoutesList login={login} signup={signup} />
+          <RoutesList editProfile={editProfile} login={login} signup={signup} />
         </BrowserRouter>
       </userContext.Provider>
     </>
