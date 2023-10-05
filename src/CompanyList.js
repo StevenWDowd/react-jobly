@@ -40,7 +40,7 @@ function CompanyList() {
         <SearchForm filterResults={filterResults} />
       </div>
       <ul className="CompanyList-list">
-        {companiesData.map(c => (<li><CompanyCard key={c.handle}
+        {companiesData.map(c => (<li key={c.handle}><CompanyCard key={c.handle}
           company={c} /></li>))}
 
       </ul>

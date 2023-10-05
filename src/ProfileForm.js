@@ -12,70 +12,75 @@ import { useNavigate } from "react-router-dom";
  *    -errors (if edit fails on back end)
  *
  */
+
 function ProfileForm({ editProfile }) {
+  //   const { currentUser } = useContext(userContext);
+  //   const navigate = useNavigate();
 
-  const { currentUser } = useContext(userContext);
-  const navigate = useNavigate();
 
-  const initialFormData = {
-    username: currentUser.username,
-    firstName: currentUser.firstName,
-    lastName: currentUser.lastName,
-    email: currentUser.email,
-  };
+  //   // return navigate("/");
+  //   // console.log("@profileFOrm");
 
-  const [formData, setFormData] = useState(initialFormData);
-  const [errors, setErrors] = useState(null);
+  //   const initialFormData = {
+  //     username: currentUser.username,
+  //     firstName: currentUser.firstName,
+  //     lastName: currentUser.lastName,
+  //     email: currentUser.email,
+  //   };
 
-  /**
-  * Updates form data
-  */
-  function handleChange(evt) {
-    const { value, name } = evt.target;
-    setFormData(f => ({
-      ...f,
-      [name]: value,
-    }));
-  }
+  //   const [formData, setFormData] = useState(initialFormData);
+  //   const [errors, setErrors] = useState(null);
 
-  /**
-  * Handles form submission
- */
-  async function handleSubmit(evt) {
-    evt.preventDefault();
+  //   /**
+  //   * Updates form data
+  //   */
+  //   function handleChange(evt) {
+  //     const { value, name } = evt.target;
+  //     setFormData(f => ({
+  //       ...f,
+  //       [name]: value,
+  //     }));
+  //   }
 
-    try {
-      await editProfile(formData);
-      navigate("/");
-    } catch (err) {
-      setErrors(err);
-    }
-  }
+  //   /**
+  //   * Handles form submission
+  //  */
+  //   async function handleSubmit(evt) {
+  //     evt.preventDefault();
 
-  return (
-    <form className="ProfileForm" onSubmit={handleSubmit}>
-      <input name="username"
-        value={formData.username}
-        className="username-field"
-        disabled />
-      <input name="firstName"
-        value={formData.firstName}
-        className="firstName-field"
-        placeholder="First Name"
-        onChange={handleChange} />
-      <input name="lastName"
-        value={formData.lastName}
-        className="lastName-field"
-        placeholder="Last Name"
-        onChange={handleChange} />
-      <input name="email"
-        value={formData.email}
-        className="email-field"
-        placeholder="Email"
-        onChange={handleChange} />
-      {errors ? <ErrorBox messages={errors} /> : ""}
-      <button className="ProfileForm-submit-btn" type="submit">Save</button>
-    </form>);
+  //     try {
+  //       await editProfile(formData);
+  //       navigate("/");
+  //     } catch (err) {
+  //       setErrors(err);
+  //     }
+  //   }
+
+  //   return (
+  //     <form className="ProfileForm" onSubmit={handleSubmit}>
+  //       <input name="username"
+  //         value={formData.username}
+  //         className="username-field"
+  //         disabled />
+  //       <input name="firstName"
+  //         value={formData.firstName}
+  //         className="firstName-field"
+  //         placeholder="First Name"
+  //         onChange={handleChange} />
+  //       <input name="lastName"
+  //         value={formData.lastName}
+  //         className="lastName-field"
+  //         placeholder="Last Name"
+  //         onChange={handleChange} />
+  //       <input name="email"
+  //         value={formData.email}
+  //         className="email-field"
+  //         placeholder="Email"
+  //         onChange={handleChange} />
+  //       {errors ? <ErrorBox messages={errors} /> : ""}
+  //       <button className="ProfileForm-submit-btn" type="submit">Save</button>
+  //     </form>);
+  return <h1>This is a placeholder</h1>;
 }
 
 export default ProfileForm;

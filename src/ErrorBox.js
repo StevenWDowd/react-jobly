@@ -3,6 +3,7 @@
  *
  * props: array of error messages
  */
+//TODO: need keys for errors
 function ErrorBox({ messages }) {
   return (
     <div className="ErrorBox">
