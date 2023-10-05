@@ -2,9 +2,11 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorBox from "./ErrorBox";
 
-
-
 //TODO: error before login: "Input elements should have autocomplete attributes"
+
+/**
+ * Renders LoginForm for returning users
+ */
 function LoginForm({ login }) {
   const initialFormData = {
     username: "",
@@ -14,6 +16,9 @@ function LoginForm({ login }) {
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
+  /**
+   * Updates form data
+   */
   function handleChange(evt) {
     const { value, name } = evt.target;
     setFormData(f => ({
@@ -22,7 +27,9 @@ function LoginForm({ login }) {
     }));
 
   }
-
+  /**
+   * Handles form submission
+  */
   async function handleSubmit(evt) {
     evt.preventDefault();
 
@@ -40,13 +47,15 @@ function LoginForm({ login }) {
       <input name="username"
         value={formData.username}
         className="username-field"
+        placeholder="Username"
         onChange={handleChange} />
       <input name="password"
         value={formData.password}
         className="password-field"
+        placeholder="Password"
         type="password"
         onChange={handleChange} />
-      {errors ? (<ErrorBox messages={errors} />) : ""}
+      {errors ? <ErrorBox messages={errors} /> : ""}
       <button className="LoginForm-submit-btn" type="submit">Log In</button>
     </form>
   );

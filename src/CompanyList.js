@@ -11,7 +11,6 @@ import JoblyApi from "./api";
  *  App -> RoutesList -> CompanyList
  */
 function CompanyList() {
-
   const [companiesData, setCompaniesData] = useState(null);
 
   useEffect(function fetchCompaniesWhenMounted() {
@@ -22,33 +21,30 @@ function CompanyList() {
     fetchCompanies();
   }, []);
 
-
+  /** Update search based on user input */
   async function filterResults(searchQuery) {
-
-
-
     if (searchQuery) {
-    const newCompanies = await JoblyApi.getCompanies({nameLike: searchQuery});
-    setCompaniesData(newCompanies);
+      const newCompanies = await JoblyApi.getCompanies({ nameLike: searchQuery });
+      setCompaniesData(newCompanies);
 
-    }}
+    }
+  }
 
   if (!companiesData) {
-    return <h1>Loading... </h1>
-    }
-
+    return <h1>Loading... </h1>;
+  }
 
   return (
-      <div className="CompanyList">
-        <div className="CompanyList-search-bar">
-          <SearchForm filterResults={filterResults} />
-        </div>
-        <ul className="CompanyList-list">
-          {companiesData.map(c => (<li><CompanyCard key={c.handle}
-                                                        company={c} /></li>))}
-
-        </ul>
+    <div className="CompanyList">
+      <div className="CompanyList-search-bar">
+        <SearchForm filterResults={filterResults} />
       </div>
+      <ul className="CompanyList-list">
+        {companiesData.map(c => (<li><CompanyCard key={c.handle}
+          company={c} /></li>))}
+
+      </ul>
+    </div>
   );
 
 }

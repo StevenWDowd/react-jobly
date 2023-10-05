@@ -11,8 +11,6 @@ import JoblyApi from "./api";
   State: jobsData: a list of job objects retrieved by an API call,
          like: [{id, title, salary, equity, companyHandle, companyName)} ...]
 
-
-
   App -> RoutesList -> JobList
 */
 function JobList() {
@@ -26,23 +24,26 @@ function JobList() {
     fetchJobs();
   }, []);
 
+  /**
+   * Update search based on user form input
+   */
   async function filterResults(searchQuery) {
 
     if (searchQuery) {
-    const newJobs = await JoblyApi.getJobs({title: searchQuery});
-    setJobsData(newJobs);
+      const newJobs = await JoblyApi.getJobs({ title: searchQuery });
+      setJobsData(newJobs);
     }
   }
 
-  if (!jobsData) return <h1>Loading... </h1>
+  if (!jobsData) return <h1>Loading... </h1>;
 
   return (
-      <div className="JobList">
-        <div className="JobsList-search-bar">
-          <SearchForm filterResults={filterResults}/>
-        </div>
-        <JobCardList jobs={jobsData} />
+    <div className="JobList">
+      <div className="JobsList-search-bar">
+        <SearchForm filterResults={filterResults} />
       </div>
+      <JobCardList jobs={jobsData} />
+    </div>
   );
 }
 

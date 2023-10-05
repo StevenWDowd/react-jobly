@@ -2,7 +2,7 @@ import { useState } from "react";
 import ErrorBox from "./ErrorBox";
 import { useNavigate } from "react-router-dom";
 
-function SignupForm({signup}) {
+function SignupForm({ signup }) {
 
   const initialFormData = {
     username: "",
@@ -41,23 +41,28 @@ function SignupForm({signup}) {
       <input name="username"
         value={formData.username}
         className="username-field"
+        placeholder="Username"
         onChange={handleChange} />
       <input name="password"
         value={formData.password}
         className="password-field"
+        placeholder="Password"
         type="password"
         onChange={handleChange} />
       <input name="firstName"
         value={formData.firstName}
         className="firstName-field"
+        placeholder="First Name"
         onChange={handleChange} />
       <input name="lastName"
         value={formData.lastName}
         className="lastName-field"
+        placeholder="Last Name"
         onChange={handleChange} />
       <input name="email"
         value={formData.email}
         className="email-field"
+        placeholder="Email"
         onChange={handleChange} />
       {errors ? (<ErrorBox messages={errors} />) : ""}
       <button className="SignupForm-submit-btn" type="submit">Sign Up</button>

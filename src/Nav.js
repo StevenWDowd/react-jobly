@@ -18,14 +18,15 @@ import ProfileForm from "./ProfileForm";
  *  -Login
  *  -Signup
  *
+ * props: logout function
  *
  *  App -> Nav
  */
 
 function Nav({ logout }) {
   const { currentUser } = useContext(userContext);
-  return currentUser
 
+  return currentUser
     ? (
       <nav className="Nav">
 
@@ -33,7 +34,9 @@ function Nav({ logout }) {
         <NavLink to="/companies">Companies</NavLink>
         <NavLink to="/jobs">Jobs</NavLink>
         <NavLink to="/profile">Profile</NavLink>
-        <button className="Nav-Logout-Button" onClick={logout}>Log out {currentUser.username}</button>
+        <button className="Nav-Logout-Button"
+          onClick={logout}>Log out {currentUser.username}
+        </button>
       </nav>
     )
     : (

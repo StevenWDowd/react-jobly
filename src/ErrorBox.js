@@ -1,8 +1,12 @@
-function ErrorBox({messages}){
-  console.log(messages);
+/**
+ * Renders error messages from failed login/signup
+ *
+ * props: array of error messages
+ */
+function ErrorBox({ messages }) {
   return (
     <div className="ErrorBox">
-      {messages.map(error => (<p>{error.message}</p>) )}
+      {messages.map(error => (<p>{error.message}</p>))}
     </div>
   );
 

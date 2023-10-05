@@ -14,11 +14,6 @@ class JoblyApi {
   // We're providing a token you can use to interact with the backend API
   // DON'T MODIFY THIS TOKEN
 
-  //TODO: change this implementation?
-  // static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZ" +
-  //   "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
-  //   "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
-
   static token;
 
   static async request(endpoint, data = {}, method = "GET") {
@@ -72,6 +67,7 @@ class JoblyApi {
     return res.jobs;
   }
 
+  /** Get Token */
   static async getToken(formData) {
     let res = await this.request(`auth/token`, formData, "POST");
     this.token = res.token;
@@ -80,13 +76,14 @@ class JoblyApi {
 
   /**
    * gets: { username, firstName, lastName, isAdmin, jobs }
- *   where jobs is { id, title, companyHandle, companyName, state }
+   * where jobs is { id, title, companyHandle, companyName, state }
    */
   static async getUserData(username) {
     let res = await this.request(`users/${username}`);
     return res.user;
   }
 
+  /** Returns token for newly registered user */
   static async registerUser(formData) {
     let res = await this.request(`auth/register`, formData, "POST");
     this.token = res.token;

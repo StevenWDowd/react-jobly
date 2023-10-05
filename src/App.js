@@ -6,39 +6,29 @@ import RoutesList from './RoutesList';
 import userContext from './userContext';
 import { useState, useEffect, useContext } from 'react';
 import JoblyApi from './api';
+import jwt_decode from "jwt-decode";
 
 
 /** Function to render the outer shell of the app.
  *
  */
 function App() {
-
   const [token, setToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
-
-  //TODO: login, signup, logout, editprofile? functions
-  //TODO: wrap BrowserRouter in userContext component
-  //TODO: add State to App to keep track of token, currUser
-
-
 
   //Passed to LoginForm as prop
   async function login(formData) {
     const tokenResp = await JoblyApi.getToken(formData);
-
-    console.log("token resp is: ", tokenResp);
     setToken(tokenResp);
-    setCurrentUser({username: formData.username});
   }
 
   //Called when token state is updated
   useEffect(function getUserData() {
     async function fetchUser() {
-      if (currentUser) {
-        const newUser = await JoblyApi.getUserData(currentUser.username);
+      if (token) {
+        const { username } = jwt_decode(token);
+        const newUser = await JoblyApi.getUserData(username);
         setCurrentUser(newUser);
-
       }
     }
     fetchUser();
@@ -48,10 +38,11 @@ function App() {
   async function signup(formData) {
     const token = await JoblyApi.registerUser(formData);
     setToken(token);
-    setCurrentUser(u => ({
-      ...u,
-      username: formData.username,
-    }));
+    if (token) {
+      const { username } = jwt_decode(token);
+      const newUser = await JoblyApi.getUserData(username);
+      setCurrentUser(newUser);
+    }
   }
 
   //placed on logout button on navbar onClick

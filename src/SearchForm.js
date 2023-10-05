@@ -16,11 +16,13 @@ function SearchForm({ filterResults }) {
 
   const [formData, setFormData] = useState("");
 
+  /** Updates form data */
   function handleChange(evt) {
     const { value } = evt.target;
     setFormData(value);
   }
 
+  /** Handles form submission */
   function handleSubmit(evt) {
     evt.preventDefault();
     filterResults(formData);
@@ -30,8 +32,8 @@ function SearchForm({ filterResults }) {
   return (
     <form className="Search" onSubmit={handleSubmit}>
       <input name="search"
-             value={formData}
-             onChange={handleChange}></input>
+        value={formData}
+        onChange={handleChange}></input>
       <button className="SearchButton" type="submit">Search</button>
     </form>
   );
