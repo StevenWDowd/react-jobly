@@ -63,13 +63,12 @@ class JoblyApi {
   }
 
   /** Get information on all jobs */
-  static async getJobs(searchData={}) {
+  static async getJobs(searchData = {}) {
     let res = await this.request(`jobs/`, searchData);
     return res.jobs;
   }
 
-  static async getToken(formData){
-    console.log("getToken has been called");
+  static async getToken(formData) {
     let res = await this.request(`auth/token`, formData, "POST");
     this.token = res.token; //FIXME: Does this even work?
     return res.token;
@@ -84,7 +83,7 @@ class JoblyApi {
     return res.user;
   }
 
-  static async registerUser(formData){
+  static async registerUser(formData) {
     let res = await this.request(`auth/register`, formData, "POST");
     this.token = res.token; //FIXME: Does this even work?
     return res.token;

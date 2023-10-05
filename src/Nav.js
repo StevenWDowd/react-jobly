@@ -1,27 +1,48 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Nav.css";
+import userContext from "./userContext";
+import { useContext } from "react";
 import ProfileForm from "./ProfileForm";
 
-//TODO: Do we need parent nav links or ul with li wrapped Links?
-//TODO: Use NavLink comps here
 
-/** Renders a nav bar with links to the homepage, companies page, and jobs
- *  page
+/** Renders a nav bar with links to:
+ * If Logged In
+ *  -homepage
+ *  -companies
+ *  -jobs
+ *  -Profile
+ *  -Logout
+ *
+ * If Logged Out
+ *  -Homepage
+ *  -Login
+ *  -Signup
+ *
  *
  *  App -> Nav
  */
-function Nav() {
-  return (
-    <nav className="Nav">
 
-      <NavLink to="/" >Jobly</NavLink>
-      <NavLink to="/companies">Companies</NavLink>
-      <NavLink to="/jobs">Jobs</NavLink>
-      <NavLink to="/login">Log In</NavLink>
-      <NavLink to="/signup">Sign Up</NavLink>
-      <NavLink to="/profile">Profile</NavLink>
-    </nav>
-  );
+function Nav({ logout }) {
+  const { currentUser } = useContext(userContext);
+  return currentUser.firstName
+
+    ? (
+      <nav className="Nav">
+
+        <NavLink to="/" >Jobly</NavLink>
+        <NavLink to="/companies">Companies</NavLink>
+        <NavLink to="/jobs">Jobs</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+        <button className="Nav-Logout-Button" onClick={logout}>Log out {currentUser.username}</button>
+      </nav>
+    )
+    : (
+      <div>
+        <NavLink to="/">Jobly</NavLink>
+        <NavLink to="/login">Login</NavLink>
+        <NavLink to="signup">Sign Up</NavLink>
+      </div>
+    );
 }
 
 export default Nav;
