@@ -68,6 +68,28 @@ class JoblyApi {
     return res.jobs;
   }
 
+  static async getToken(formData){
+    console.log("getToken has been called");
+    let res = await this.request(`auth/token`, formData, "POST");
+    this.token = res.token; //FIXME: Does this even work?
+    return res.token;
+  }
+
+  /**
+   * gets: { username, firstName, lastName, isAdmin, jobs }
+ *   where jobs is { id, title, companyHandle, companyName, state }
+   */
+  static async getUserData(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
+  static async registerUser(formData){
+    let res = await this.request(`auth/register`, formData, "POST");
+    this.token = res.token; //FIXME: Does this even work?
+    return res.token;
+  }
+
 }
 
 export default JoblyApi;
