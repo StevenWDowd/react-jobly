@@ -24,7 +24,7 @@ import ProfileForm from "./ProfileForm";
 
 function Nav({ logout }) {
   const { currentUser } = useContext(userContext);
-  return currentUser.firstName
+  return currentUser
 
     ? (
       <nav className="Nav">

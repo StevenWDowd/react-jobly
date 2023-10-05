@@ -14,7 +14,7 @@ function Homepage() {
     <div>
       <h1>Jobly</h1>
       <p>All the jobs in one, barren place</p>
-      {currentUser.username ? (<p>Welcome Back {currentUser.username}</p>) : ""}
+      {currentUser ? (<p>Welcome Back {currentUser.username}</p>) : ""}
     </div>
   );
 };
