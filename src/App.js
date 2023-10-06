@@ -27,29 +27,22 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  //check localstorage for token
-  //TODO: try/catch for localStorage token tomfoolery
-  useEffect(function checkLocalToken() {
-    try {
-      jwt_decode(token)
-    } catch (err) {
-      console.log("error caught, token set to null");
-      localStorage.removeItem("joblyToken");
-      setToken(null);
-    }
-    setIsLoaded(true);
-  }, []);
 
   //Called when token state is updated
   useEffect(function getUserData() {
     async function fetchUser() {
-      if (token) {
-        console.log("getUserData running");
-        JoblyApi.token = token;
-        const { username } = jwt_decode(token);
-        const newUser = await JoblyApi.getUserData(username);
-        localStorage.setItem("joblyToken", token);
-        setCurrentUser(newUser);
+      setIsLoaded(true);
+      try {
+        if (token) {
+          JoblyApi.token = token;
+          const { username } = jwt_decode(token);
+          const newUser = await JoblyApi.getUserData(username);
+          localStorage.setItem("joblyToken", token);
+          setCurrentUser(newUser);
+        }
+      } catch (err) {
+        localStorage.removeItem("joblyToken");
+        setToken(null);
       }
     }
     fetchUser();
@@ -75,9 +68,9 @@ function App() {
 
   //Edits profile based on user input
   async function editProfile(formData) {
-      const { username } = jwt_decode(token);
-      const updatedUser = await JoblyApi.updateUser(username, formData);
-      setCurrentUser(updatedUser);
+    const { username } = jwt_decode(token);
+    const updatedUser = await JoblyApi.updateUser(username, formData);
+    setCurrentUser(updatedUser);
   }
 
   //Placed on logout button on navbar onClick
