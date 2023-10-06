@@ -31,7 +31,7 @@ function App() {
   //Called when token state is updated
   useEffect(function getUserData() {
     async function fetchUser() {
-      setIsLoaded(true);
+      // setIsLoaded(true);
       try {
         if (token) {
           JoblyApi.token = token;
@@ -39,13 +39,17 @@ function App() {
           const newUser = await JoblyApi.getUserData(username);
           localStorage.setItem("joblyToken", token);
           setCurrentUser(newUser);
+          setIsLoaded(true);
         }
       } catch (err) {
         localStorage.removeItem("joblyToken");
-        setToken(null);
+        //setToken(null);
+        console.log("token is: ", token);
+        setIsLoaded(true);
       }
     }
     fetchUser();
+    //setIsLoaded(true);
   }, [token]);
 
 
@@ -81,15 +85,16 @@ function App() {
   }
 
   return (
+    isLoaded ?
     <>
       <userContext.Provider value={{ currentUser }}>
         <BrowserRouter>
           <Nav logout={logout} />
-          <RoutesList editProfile={editProfile} login={login} signup={signup}
-            isLoaded={isLoaded} />
+          <RoutesList editProfile={editProfile} login={login} signup={signup} />
         </BrowserRouter>
       </userContext.Provider>
     </>
+    : <h1>Loading...</h1>
   );
 }
 

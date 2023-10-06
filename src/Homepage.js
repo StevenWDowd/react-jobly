@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import userContext from "./userContext";
 import { Link } from "react-router-dom";
+import "./Homepage.css";
 
 /** Function to render a homepage for the app and welcomes logged in user
  *  props: none
@@ -12,7 +13,7 @@ function Homepage() {
   const { currentUser } = useContext(userContext);
 
   return (
-    <div>
+    <div className="Homepage">
       <h1>Jobly</h1>
       <p>All the jobs in one, barren place</p>
       {currentUser ? (<p>Welcome Back {currentUser.username}</p>) :

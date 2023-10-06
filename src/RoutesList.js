@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import userContext from "./userContext";
 import { useContext } from "react";
 import Homepage from "./Homepage";
@@ -22,10 +22,8 @@ import ProfileForm from "./ProfileForm";
  *
  *  App -> RoutesList -> { Homepage, LoginForm, SignupForm }
  */
-function RoutesList({ login, signup, editProfile, isLoaded }) {
+function RoutesList({ login, signup, editProfile }) {
   const { currentUser } = useContext(userContext);
-
-  if (!isLoaded) return <h1>Loading...</h1>;
 
   return currentUser
     ? (
@@ -35,7 +33,7 @@ function RoutesList({ login, signup, editProfile, isLoaded }) {
         <Route path="/jobs" element={<JobList />} />
         <Route path="/companies/:handle" element={<CompanyDetail />} />
         <Route path="/profile" element={<ProfileForm editProfile={editProfile} />} />
-        <Route path="*" element={<Homepage />} />
+        <Route path="*" element={<Navigate to={"/"}/>} />
       </Routes>
     )
     : (
@@ -43,7 +41,7 @@ function RoutesList({ login, signup, editProfile, isLoaded }) {
         <Route path="/" element={<Homepage />} />
         <Route path="login" element={<LoginForm login={login} />} />
         <Route path="signup" element={<SignupForm signup={signup} />} />
-        <Route path="*" element={<Homepage />} />
+        <Route path="*" element={<Navigate to={"/"}/>} />
       </Routes>
     );
 }
