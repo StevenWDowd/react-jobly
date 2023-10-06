@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
 import userContext from "./userContext";
 import ErrorBox from "./ErrorBox";
-import { useNavigate } from "react-router-dom";
+import SuccessBox from "./SuccessBox";
+
 
 /** Renders a form for editing the user's profile (password and username
  *  cannot be edited).
@@ -15,11 +16,6 @@ import { useNavigate } from "react-router-dom";
 
 function ProfileForm({ editProfile }) {
   const { currentUser } = useContext(userContext);
-  const navigate = useNavigate();
-
-
-  // return navigate("/");
-  // console.log("@profileFOrm");
 
   const initialFormData = {
     username: currentUser.username,
@@ -30,6 +26,7 @@ function ProfileForm({ editProfile }) {
 
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(null);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
 
   /**
   * Updates form data
@@ -50,7 +47,7 @@ function ProfileForm({ editProfile }) {
 
     try {
       await editProfile(formData);
-      navigate("/");
+      setUpdateSuccess(true);
     } catch (err) {
       setErrors(err);
     }
@@ -78,6 +75,8 @@ function ProfileForm({ editProfile }) {
         placeholder="Email"
         onChange={handleChange} />
       {errors ? <ErrorBox messages={errors} /> : ""}
+      {updateSuccess ?
+          <SuccessBox messageString="Profile updated successfully"/> : ""}
       <button className="ProfileForm-submit-btn" type="submit">Save</button>
     </form>);
 }

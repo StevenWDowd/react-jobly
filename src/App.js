@@ -22,22 +22,30 @@ import jwt_decode from "jwt-decode";
  *  App -> Nav, RoutesList
  */
 function App() {
-  const [token, setToken] = useState(null);
+  const localToken = localStorage.getItem("joblyToken");
+  const [token, setToken] = useState(localToken);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   //check localstorage for token
-  useEffect(function getLocalToken() {
-    const localToken = localStorage.getItem("joblyToken");
-    console.log(localToken);
-    JoblyApi.token = localToken;
-    setToken(localToken);
+  //TODO: try/catch for localStorage token tomfoolery
+  useEffect(function checkLocalToken() {
+    try {
+      jwt_decode(token)
+    } catch (err) {
+      console.log("error caught, token set to null");
+      localStorage.removeItem("joblyToken");
+      setToken(null);
+    }
+    setIsLoaded(true);
   }, []);
 
   //Called when token state is updated
   useEffect(function getUserData() {
     async function fetchUser() {
       if (token) {
+        console.log("getUserData running");
+        JoblyApi.token = token;
         const { username } = jwt_decode(token);
         const newUser = await JoblyApi.getUserData(username);
         localStorage.setItem("joblyToken", token);
@@ -47,10 +55,6 @@ function App() {
     fetchUser();
   }, [token]);
 
-  //TODO: should this be own function? or add following line 32
-  useEffect(function loadingStatus() {
-    setIsLoaded(true);
-  }, []);
 
   //Passed to LoginForm as prop
   async function login(formData) {
@@ -62,20 +66,18 @@ function App() {
   async function signup(formData) {
     const token = await JoblyApi.signup(formData);
     setToken(token);
-    if (token) {
-      const { username } = jwt_decode(token);
-      const newUser = await JoblyApi.getUserData(username);
-      setCurrentUser(newUser);
-    }
+
+    const { username } = jwt_decode(token);
+    const newUser = await JoblyApi.getUserData(username);
+    setCurrentUser(newUser);
+
   }
 
   //Edits profile based on user input
   async function editProfile(formData) {
-    if (token) {
       const { username } = jwt_decode(token);
       const updatedUser = await JoblyApi.updateUser(username, formData);
       setCurrentUser(updatedUser);
-    }
   }
 
   //Placed on logout button on navbar onClick
