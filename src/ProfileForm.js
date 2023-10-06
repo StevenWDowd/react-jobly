@@ -57,26 +57,26 @@ function ProfileForm({ editProfile }) {
     <form className="ProfileForm" onSubmit={handleSubmit}>
       <input name="username"
         value={formData.username}
-        className="username-field"
+        className="profile-input"
         disabled />
       <input name="firstName"
         value={formData.firstName}
-        className="firstName-field"
+        className="profile-input"
         placeholder="First Name"
         onChange={handleChange} />
       <input name="lastName"
         value={formData.lastName}
-        className="lastName-field"
+        className="profile-input"
         placeholder="Last Name"
         onChange={handleChange} />
       <input name="email"
         value={formData.email}
-        className="email-field"
+        className="profile-input"
         placeholder="Email"
         onChange={handleChange} />
       {errors ? <ErrorBox messages={errors} /> : ""}
       {updateSuccess ?
-          <SuccessBox messageString="Profile updated successfully"/> : ""}
+        <SuccessBox messageString="Profile updated successfully" /> : ""}
       <button className="ProfileForm-submit-btn" type="submit">Save</button>
     </form>);
 }

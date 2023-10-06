@@ -1,8 +1,8 @@
 .Homepage {
   align-items: center;
   text-align: center;
+  color: tomato;
+  background-color: black;
 }
 
-.Homepage a {
-
-}
+.Homepage a {}
