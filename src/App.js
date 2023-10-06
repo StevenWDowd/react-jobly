@@ -86,14 +86,14 @@ function App() {
 
   return (
     isLoaded ?
-    <>
+    <div className='App'>
       <userContext.Provider value={{ currentUser }}>
         <BrowserRouter>
           <Nav logout={logout} />
           <RoutesList editProfile={editProfile} login={login} signup={signup} />
         </BrowserRouter>
       </userContext.Provider>
-    </>
+    </div>
     : <h1>Loading...</h1>
   );
 }

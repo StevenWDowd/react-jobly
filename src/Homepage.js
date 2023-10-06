@@ -15,11 +15,11 @@ function Homepage() {
   return (
     <div className="Homepage">
       <h1>Jobly</h1>
-      <p>All the jobs in one, barren place</p>
+      <p>All the jobs in one place</p>
       {currentUser ? (<p>Welcome Back {currentUser.username}</p>) :
         <>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/login" className="Homepage-login-btn">Login</Link>
+          <Link to="/signup" className="Homepage-signup-btn">Sign Up</Link>
         </>
       }
     </div>

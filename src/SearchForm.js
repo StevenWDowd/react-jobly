@@ -30,8 +30,8 @@ function SearchForm({ filterResults }) {
   }
 
   return (
-    <form className="Search" onSubmit={handleSubmit}>
-      <input name="search"
+    <form className="SearchForm" onSubmit={handleSubmit}>
+      <input name="SearchForm-bar"
         value={formData}
         onChange={handleChange}></input>
       <button className="SearchButton" type="submit">Search</button>

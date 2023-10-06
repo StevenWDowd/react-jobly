@@ -30,8 +30,8 @@ function CompanyDetail() {
 
   return (
     <div className="CompanyDetail">
-      <h1>{companyData.name}</h1>
-      <h3>{companyData.description}</h3>
+      <h1 className="CompanyDetail-name">{companyData.name}</h1>
+      <h3 className="CompanyDetail-description">{companyData.description}</h3>
       <JobCardList jobs={companyData.jobs} />
     </div>
   );
