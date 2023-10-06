@@ -85,15 +85,14 @@ class JoblyApi {
 
   //TODO: change name to signup
   /** Returns token for newly registered user */
-  static async registerUser(formData) {
+  static async signup(formData) {
     let res = await this.request(`auth/register`, formData, "POST");
     this.token = res.token;
     return res.token;
   }
 
   /** Updates a user's first name, last name, and/or email */
-  static async updateUser(formData) {
-    const username = formData.username;
+  static async updateUser(username, formData) {
     delete formData.username;
     let res = await this.request(`users/${username}`, formData, "PATCH");
     return res.user;
