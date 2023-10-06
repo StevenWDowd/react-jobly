@@ -2,6 +2,16 @@ import { useState } from "react";
 import ErrorBox from "./ErrorBox";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Renders Signup form for new users
+ *
+ * props: signup function
+ * state:
+ * -formData {username, password}
+ * -errors [{error}, ...]
+ *
+ *  App -> RoutesList -> SignupForm
+ */
 function SignupForm({ signup }) {
 
   const initialFormData = {
@@ -15,6 +25,7 @@ function SignupForm({ signup }) {
   const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
+  /** Updates input field data */
   function handleChange(evt) {
     const { value, name } = evt.target;
     setFormData(f => ({
@@ -23,7 +34,7 @@ function SignupForm({ signup }) {
     }));
 
   }
-
+  /** Handles form submission*/
   async function handleSubmit(evt) {
     evt.preventDefault();
 

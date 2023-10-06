@@ -9,18 +9,17 @@ import JoblyApi from './api';
 import jwt_decode from "jwt-decode";
 
 
-/** Function to render the outer shell of the app.
+/** Function to render the outer shell of the app and handles logic for
+ *  user authentication and userData retrieval
  *
+ * props: none
+ * state:
+ *  -token (string)
+ *  -currentUser ({username, firstName, lastName, email}
  */
 function App() {
   const [token, setToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
-  //Passed to LoginForm as prop
-  async function login(formData) {
-    const tokenResp = await JoblyApi.getToken(formData);
-    setToken(tokenResp);
-  }
 
   //Called when token state is updated
   useEffect(function getUserData() {
@@ -34,6 +33,12 @@ function App() {
     fetchUser();
   }, [token]);
 
+  //Passed to LoginForm as prop
+  async function login(formData) {
+    const tokenResp = await JoblyApi.getToken(formData);
+    setToken(tokenResp);
+  }
+
   //Passed to SignupForm as prop
   async function signup(formData) {
     const token = await JoblyApi.registerUser(formData);
@@ -44,7 +49,7 @@ function App() {
       setCurrentUser(newUser);
     }
   }
-
+  //edits profile based on user input
   async function editProfile(formData) {
     if (token) {
       const { username } = jwt_decode(token);

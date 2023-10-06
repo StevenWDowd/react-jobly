@@ -6,6 +6,13 @@ import ErrorBox from "./ErrorBox";
 
 /**
  * Renders LoginForm for returning users
+ *
+ * props: login function
+ * state:
+ *  -formData {username, password}
+ *  -errors [{error}, ...]
+ *
+ *  App -> RoutesList -> LoginForm
  */
 function LoginForm({ login }) {
   const initialFormData = {
