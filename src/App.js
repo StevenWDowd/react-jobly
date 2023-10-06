@@ -16,10 +16,21 @@ import jwt_decode from "jwt-decode";
  * state:
  *  -token (string)
  *  -currentUser ({username, firstName, lastName, email}
+ *
+ *  App -> Nav, RoutesList
  */
 function App() {
   const [token, setToken] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+
+  //check localstorage for token
+  useEffect(function getLocalToken() {
+    const localToken = localStorage.getItem("joblyToken");
+    console.log(localToken);
+    if (localToken){
+    JoblyApi.token = localToken;
+    setToken(localToken);
+  }}, []);
 
   //Called when token state is updated
   useEffect(function getUserData() {
@@ -27,6 +38,7 @@ function App() {
       if (token) {
         const { username } = jwt_decode(token);
         const newUser = await JoblyApi.getUserData(username);
+        localStorage.setItem("joblyToken", token);
         setCurrentUser(newUser);
       }
     }
@@ -62,7 +74,8 @@ function App() {
   function logout() {
     setCurrentUser(null);
     setToken(null);
-    return <Navigate to="/" />;
+    localStorage.removeItem("joblyToken");
+    //return <Navigate to="/" />;
   }
 
   return (

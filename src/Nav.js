@@ -40,11 +40,11 @@ function Nav({ logout }) {
       </nav>
     )
     : (
-      <div>
+      <nav className="Nav">
         <NavLink to="/">Jobly</NavLink>
         <NavLink to="/login">Login</NavLink>
         <NavLink to="signup">Sign Up</NavLink>
-      </div>
+      </nav>
     );
 }
 

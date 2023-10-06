@@ -83,6 +83,7 @@ class JoblyApi {
     return res.user;
   }
 
+  //TODO: change name to signup
   /** Returns token for newly registered user */
   static async registerUser(formData) {
     let res = await this.request(`auth/register`, formData, "POST");

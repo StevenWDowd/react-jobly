@@ -14,6 +14,8 @@ import ProfileForm from "./ProfileForm";
  *  App -> RoutesList -> { Homepage, CompanyList, CompanyDetail, JobList,
  *  LoginForm, SignupForm, ProfileForm}
  */
+
+//TODO: add Route protection here.
 function RoutesList({ login, signup, editProfile }) {
   return (
     <Routes>
