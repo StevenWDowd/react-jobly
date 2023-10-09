@@ -31,7 +31,6 @@ function App() {
   //Called when token state is updated
   useEffect(function getUserData() {
     async function fetchUser() {
-      // setIsLoaded(true);
       try {
         if (token) {
           JoblyApi.token = token;
@@ -39,7 +38,9 @@ function App() {
           const newUser = await JoblyApi.getUserData(username);
           localStorage.setItem("joblyToken", token);
           setCurrentUser(newUser);
-          setIsLoaded(true);
+          //setIsLoaded(true);
+        } else {
+          //setIsLoaded(true);
         }
       } catch (err) {
         localStorage.removeItem("joblyToken");
@@ -48,8 +49,8 @@ function App() {
         setIsLoaded(true);
       }
     }
+    setIsLoaded(true);
     fetchUser();
-    //setIsLoaded(true);
   }, [token]);
 
 
